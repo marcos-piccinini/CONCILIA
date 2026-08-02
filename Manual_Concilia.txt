@@ -1,0 +1,99 @@
+MANUAL DE USUARIO: CONCILIA
+===========================
+
+¡Bienvenido a Concilia! Este manual está diseñado para ayudarte a dar tus primeros pasos con nuestra plataforma.
+
+-------------------------------------------------------------------------------
+1. INTRODUCCIÓN
+-------------------------------------------------------------------------------
+Concilia es una aplicación inteligente diseñada para automatizar y simplificar tu proceso de conciliación bancaria. Su objetivo principal es ahorrarte horas de trabajo manual en Excel y minimizar los errores humanos al cruzar tu Extracto Bancario con tu Registro Contable. Mediante algoritmos de coincidencia exacta y difusa, Concilia empareja tus movimientos automáticamente, permitiéndote enfocarte solo en las excepciones.
+
+-------------------------------------------------------------------------------
+2. REQUISITOS MÍNIMOS
+-------------------------------------------------------------------------------
+Para utilizar Concilia de manera óptima, solo necesitas:
+- Navegador Web: Una versión actualizada de Google Chrome, Mozilla Firefox, Safari o Microsoft Edge.
+- Archivos de Datos: Tus extractos bancarios y libros contables deben estar en formato Excel (.xlsx) o CSV (.csv).
+- Conexión a Internet: Requerida para acceder a la plataforma (a menos que esté alojada en tu red local).
+
+-------------------------------------------------------------------------------
+3. PRIMEROS PASOS: TUTORIAL PASO A PASO
+-------------------------------------------------------------------------------
+Paso 1: Iniciar Sesión
+Ingresa a la aplicación con tu usuario y contraseña. (Nota: Si eres el usuario administrador 'admin', cuentas con un límite ilimitado de conciliaciones).
+
+Paso 2: Carga de Archivos
+En la pantalla principal, verás dos áreas de carga:
+1. Extracto Bancario: Arrastra o selecciona tu archivo del banco.
+2. Registro Contable: Arrastra o selecciona el archivo de tu sistema de gestión (ERP).
+
+Paso 3: Ajuste de Encabezados (Opcional)
+A menudo, los archivos traen "filas basura" al principio (logos, saldos iniciales, etc). 
+- Ingresa el número de la fila donde realmente se encuentran los títulos de tus columnas (ej. Fecha, Concepto, Monto). El sistema ignorará todo lo que esté por encima.
+
+Paso 4: Configuración de Montos
+- Por defecto: El sistema asume que tienes una única columna de "Monto" (ingresos positivos y egresos negativos).
+- Dividir Montos (Débitos y Créditos): Si tus archivos tienen los montos separados en dos columnas (Débitos y Créditos), marca la casilla "Dividir Montos en Débitos y Créditos". Concilia se encargará de hacer la matemática interna para cruzarlos.
+
+Paso 5: Mapeo de Columnas
+Dile al sistema cómo interpretar tu archivo seleccionando qué columna corresponde a cada dato clave:
+- Monto / Débito y Crédito: Selecciona las columnas numéricas.
+- Fecha: Selecciona la columna de fechas.
+- Descripción: Selecciona el detalle del movimiento (o "Ninguno" si no aplica).
+
+Paso 6: Procesar y Revisar
+Haz clic en "Procesar Conciliación". En segundos verás los resultados:
+* VERDE (Coincidencias Altas): Movimientos que cruzan perfectamente en fecha, monto y concepto.
+* AZUL (Coincidencias Bajas): Coinciden en fecha y monto, pero los textos de descripción son muy diferentes. Revisa estos manualmente.
+* ROJO (Solo Banco / Solo Contable): Movimientos que no encontraron su par en el otro archivo.
+
+Paso 7: Exportar Resultados
+Puedes descargar un reporte completo, o marcar "Exportar archivos originales coloreados" para descargar tus mismos archivos de Excel, con su estructura intacta, pintados según el resultado.
+
+-------------------------------------------------------------------------------
+4. PREGUNTAS FRECUENTES (FAQ)
+-------------------------------------------------------------------------------
+¿Qué pasa si la fecha del banco y la del sistema contable difieren por unos días?
+Concilia tiene una tolerancia de ±3 días (y ±4 días si usas la opción de Débitos/Créditos). Si un cheque entró el viernes en el sistema contable pero se debitó el lunes en el banco, el sistema lo cruzará con éxito.
+
+¿Por qué un movimiento exacto me aparece en Azul?
+Si el monto y la fecha coinciden, pero la descripción del banco dice "TRF CTA 123" y la de tu sistema dice "Pago Proveedor Juan", la similitud de texto será baja. Concilia los pinta de Azul para que un humano verifique que son el mismo pago.
+
+¿Debo borrar los encabezados de mi Excel antes de subirlo?
+¡No es necesario! Utiliza los selectores de "Fila de encabezados" introduciendo el número de fila donde arrancan los títulos. Las filas superiores quedarán transparentes.
+
+Me quedé sin conciliaciones disponibles, ¿qué hago?
+El sistema cuenta con un límite por usuario. Contacta a tu administrador.
+
+-------------------------------------------------------------------------------
+5. SOLUCIÓN DE PROBLEMAS BÁSICOS
+-------------------------------------------------------------------------------
+Problema: La aplicación dice "Error al leer el archivo" o no me deja mapear columnas.
+Solución: Asegúrate de que el archivo no esté protegido con contraseña y que su formato sea estrictamente .xlsx o .csv.
+
+Problema: Las columnas en el mapeo me aparecen como "Unnamed_1", "Unnamed_2"...
+Solución: Ajusta el campo "Fila de encabezados" (Paso 3) con el número exacto de la fila que contiene los títulos.
+
+Problema: Todos los movimientos quedaron en Rojo.
+Solución: 
+1. Verifica que hayas mapeado correctamente las columnas del Banco con las del Contable.
+2. Si usaste la opción de "Dividir Montos", revisa que no hayas mapeado los "Débitos" en el selector de "Créditos" por error.
+3. Asegúrate de que las fechas tengan un formato válido (ver a continuación).
+
+-------------------------------------------------------------------------------
+¿QUÉ ES UN FORMATO DE FECHA VÁLIDO?
+-------------------------------------------------------------------------------
+Para que Concilia pueda cruzar correctamente los movimientos, las fechas deben estar en formatos estandarizados o que Excel pueda reconocer automáticamente. 
+
+Ejemplos de formatos válidos:
+- Formato tradicional con barras: DD/MM/YYYY (ej. 31/01/2026)
+- Formato tradicional con guiones: DD-MM-YYYY (ej. 31-01-2026)
+- Formato con año corto: DD/MM/YY (ej. 31/01/26)
+- Formato de base de datos o internacional: YYYY-MM-DD (ej. 2026-01-31)
+- Formato de Celda de Excel: Cualquier celda que Excel detecte internamente con formato "Fecha" (en vez de "General" o "Texto").
+
+Formatos NO válidos que pueden causar errores:
+- Textos explícitos: "Viernes 31 Enero" o "Enero 31, 2026"
+- Números sin separadores: "31012026" o "260131"
+
+Si tus fechas tienen este último formato inválido, el sistema no podrá interpretarlas correctamente y esos movimientos quedarán en Rojo.
