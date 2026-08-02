@@ -45,6 +45,18 @@ def setup_database():
         );
     """)
 
+    print("Creando tabla user_states...")
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS user_states (
+            username VARCHAR(50) PRIMARY KEY,
+            realizadas INTEGER DEFAULT 0,
+            max_conciliaciones INTEGER DEFAULT 1,
+            bloqueo_hasta TIMESTAMP,
+            encuesta_habilitada BOOLEAN DEFAULT FALSE
+        );
+    """)
+
+
     admin_username = "admin"
     # OJO: en Postgres se usa %s en lugar de ?
     cur.execute("SELECT id FROM usuarios WHERE username = %s", (admin_username,))
