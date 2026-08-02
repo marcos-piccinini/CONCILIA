@@ -48,7 +48,8 @@ def procesar_conciliacion(
     col_fecha_conta: Optional[str], 
     col_monto_conta: str, 
     col_desc_conta: Optional[str],
-    tolerancia_dias: int = 3
+    tolerancia_dias: int = 3,
+    full_output: bool = False
 ):
     # Crear copias para no alterar los originales y evitar SettingWithCopyWarning
     banco = df_banco.copy()
@@ -165,7 +166,14 @@ def procesar_conciliacion(
     banco_original = banco.drop(columns=['_id', '_monto_clean', '_monto_raw_num'], errors='ignore')
     contable_original = contable.drop(columns=['_id', '_monto_clean', '_monto_raw_num'], errors='ignore')
     
-    return df_altas, df_bajas, solo_banco, solo_contable, banco_original, contable_original
+    # Compatibilidad hacia atrás: antes la función devolvía 3 valores (coincidencias, solo_banco, solo_contable).
+    # Mantener ese comportamiento por defecto mientras se ofrece la opción de devolver toda la información.
+    df_coincidencias = pd.concat([df_altas, df_bajas], ignore_index=True) if not df_altas.empty or not df_bajas.empty else pd.DataFrame()
+
+    if 'full_output' in locals() and full_output:
+        return df_altas, df_bajas, solo_banco, solo_contable, banco_original, contable_original
+    else:
+        return df_coincidencias, solo_banco, solo_contable
 
 def generar_excel_coloreado(df: pd.DataFrame) -> BytesIO:
     from openpyxl.styles import PatternFill
