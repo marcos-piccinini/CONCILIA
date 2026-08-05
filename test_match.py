@@ -13,7 +13,7 @@ conta = pd.DataFrame({
     'Desc': ['PAGO A PROVEEDOR ABC']
 })
 
-coinc, solo_b, solo_c = procesar_conciliacion(
+coinc, solo_b, solo_c, *_ = procesar_conciliacion(
     banco, conta,
     'Fecha', 'Monto', 'Desc',
     'Fecha', 'Monto', 'Desc'
@@ -35,7 +35,7 @@ conta2 = pd.DataFrame({
     'Desc': ['DEPOSITO']
 })
 
-coinc2, solo_b2, solo_c2 = procesar_conciliacion(
+coinc2, solo_b2, solo_c2, *_ = procesar_conciliacion(
     banco2, conta2,
     'Fecha', 'Monto', 'Desc',
     'Fecha', 'Monto', 'Desc'
@@ -55,7 +55,7 @@ conta3 = pd.DataFrame({
     'Desc': ['DEPOSITO']
 })
 
-coinc3, solo_b3, solo_c3 = procesar_conciliacion(
+coinc3, solo_b3, solo_c3, *_ = procesar_conciliacion(
     banco3, conta3,
     'Fecha', 'Monto', 'Desc',
     'Fecha', 'Monto', 'Desc'

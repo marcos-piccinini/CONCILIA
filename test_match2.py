@@ -11,7 +11,7 @@ conta4 = pd.DataFrame({
     'Monto': ['1234.00'],
     'Desc': ['DEPOSITO']
 })
-coinc4, _, _ = procesar_conciliacion(banco4, conta4, 'Fecha', 'Monto', 'Desc', 'Fecha', 'Monto', 'Desc')
+coinc4, _, _, *_ = procesar_conciliacion(banco4, conta4, 'Fecha', 'Monto', 'Desc', 'Fecha', 'Monto', 'Desc')
 print("--- TEST 4: SIN DECIMALES PERO CON PUNTO ---")
 print("Coincidencias:", len(coinc4))
 
@@ -25,7 +25,7 @@ conta5 = pd.DataFrame({
     'Monto': ['1234.00'],
     'Desc': ['COMPRA DE INSUMOS VARIOS']
 })
-coinc5, _, _ = procesar_conciliacion(banco5, conta5, 'Fecha', 'Monto', 'Desc', 'Fecha', 'Monto', 'Desc')
+coinc5, _, _, *_ = procesar_conciliacion(banco5, conta5, 'Fecha', 'Monto', 'Desc', 'Fecha', 'Monto', 'Desc')
 print("--- TEST 5: DESCRIPCIONES MUY DISTINTAS ---")
 print("Coincidencias:", len(coinc5))
 

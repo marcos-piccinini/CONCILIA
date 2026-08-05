@@ -49,7 +49,7 @@ def procesar_conciliacion(
     col_monto_conta: str, 
     col_desc_conta: Optional[str],
     tolerancia_dias: int = 3,
-    full_output: bool = False
+    full_output: bool = True
 ):
     # Crear copias para no alterar los originales y evitar SettingWithCopyWarning
     banco = df_banco.copy()
@@ -172,9 +172,11 @@ def procesar_conciliacion(
     
     # Compatibilidad hacia atrás: antes la función devolvía 3 valores (coincidencias, solo_banco, solo_contable).
     # Mantener ese comportamiento por defecto mientras se ofrece la opción de devolver toda la información.
-    df_coincidencias = pd.concat([df_altas, df_bajas], ignore_index=True) if not df_altas.empty or not df_bajas.empty else pd.DataFrame()
+    df_coincidencias = pd.concat([df_altas, df_bajas], ignore_index=True) if (not df_altas.empty or not df_bajas.empty) else pd.DataFrame()
 
-    if 'full_output' in locals() and full_output:
+    # Devolver la salida completa por defecto (seis elementos). Si se solicita solo la salida compacta,
+    # pasar full_output=False para mantener compatibilidad con quien quiera solo (coincidencias, solo_banco, solo_contable).
+    if full_output:
         return df_altas, df_bajas, solo_banco, solo_contable, banco_original, contable_original
     else:
         return df_coincidencias, solo_banco, solo_contable
