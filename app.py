@@ -802,8 +802,8 @@ else:
 
             # ── Lectura de archivos ───────────────────────
             try:
-                df_banco_raw = pd.read_csv(file_banco, header=None) if file_banco.name.endswith(".csv") else pd.read_excel(file_banco, header=None)
-                df_contable_raw = pd.read_csv(file_contable, header=None) if file_contable.name.endswith(".csv") else pd.read_excel(file_contable, header=None)
+                df_banco_raw = pd.read_csv(file_banco, header=None, sep=None, engine='python') if file_banco.name.endswith(".csv") else pd.read_excel(file_banco, header=None)
+                df_contable_raw = pd.read_csv(file_contable, header=None, sep=None, engine='python') if file_contable.name.endswith(".csv") else pd.read_excel(file_contable, header=None)
                 
                 def procesar_encabezados(df_raw, fila_encabezado):
                     idx = fila_encabezado - 1
