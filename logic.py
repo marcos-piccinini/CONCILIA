@@ -59,6 +59,10 @@ def procesar_conciliacion(
     banco.loc[:, '_monto_raw_num'], banco.loc[:, '_monto_clean'] = _limpiar_monto(banco[col_monto_banco])
     contable.loc[:, '_monto_raw_num'], contable.loc[:, '_monto_clean'] = _limpiar_monto(contable[col_monto_conta])
     
+    # Sobreescribir las columnas originales de monto para que se exporten como números
+    banco[col_monto_banco] = banco['_monto_raw_num'].astype('float64')
+    contable[col_monto_conta] = contable['_monto_raw_num'].astype('float64')
+    
     # Generar identificadores únicos
     banco.loc[:, '_id'] = range(len(banco))
     contable.loc[:, '_id'] = range(len(contable))
